@@ -6,6 +6,9 @@ import { Button } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
 import { ThemeProvider } from '@mui/material';
 import { createTheme } from '@mui/material';
+import { Alert } from '@mui/material';
+import { RegisterAlert } from '../component/BasicAlert';
+import { Stack } from '@mui/material';
 
 const Theme = createTheme({
   palette:{
@@ -21,6 +24,7 @@ const Theme = createTheme({
 export default function Register() {
     const navigate = useNavigate()
     const users = JSON.parse(localStorage.getItem('users')) || [];
+    const [showAlert, setShowAlert] = React.useState(false)
     const handleSubmit = (event) => {
       event.preventDefault();
 
@@ -36,7 +40,7 @@ export default function Register() {
 
       const emailRegex = /^[\w.-]+@[\w.-]+\.[a-z]{2,4}$/;
       if (!emailRegex.test(email)) {
-      alert('Email inválido!');
+        alert("E-mail inválido")
       return;
       }
 
@@ -68,16 +72,19 @@ export default function Register() {
       
       users.push(user);
       localStorage.setItem('users', JSON.stringify(users));
-
+      
       event.target.reset();
-
-      alert("Cadastro realizado com sucesso!")
-      navigate('/usertable')
+      setShowAlert(true)
+      
+      setTimeout(() => {
+        setShowAlert(false);
+        navigate('/usertable');
+    }, 3000); // Oculta o alerta após 3 segund
      
-    };
+  };
   return (
     <ThemeProvider theme={Theme}>
-    <Box
+      <Box
       component="form"
       sx={{
         '& > :not(style)': { m:1, width: '30ch' }, display: 'flex',
@@ -85,17 +92,18 @@ export default function Register() {
         alignItems: 'center',
       }}
       noValidate
-      autoComplete="off"
+      autoComplete="on"
       onSubmit={handleSubmit}>
-        <TextField id="nameInput" name='name'  label="Nome Completo" variant="standard" required />
-        <TextField id="emailInput" name='email'  label="Email" variant="standard" required />
+        <TextField id="nameInput" name='name'  label="Nome Completo" variant="standard" type='text' required />
+        <TextField id="emailInput" name='email'  label="Email" variant="standard" type='email' required />
         <TextField id="birthInput" name='birth'  label="Data de Nascimento" variant='standard' required />
-        <TextField id="jobInput" name='job'  label="Cargo" variant="standard" required />
-        <TextField id="sectorInput" name='sector'  label="Setor" variant="standard" required />
-        <TextField id="passwordInput" name='password'  label="Senha (seis dígitos)" variant="standard" required type='password' minLenght={6} />
+        <TextField id="jobInput" name='job'  label="Cargo" variant="standard" type='text' required />
+        <TextField id="sectorInput" name='sector'  label="Setor" variant="standard" type='text' required />
+        <TextField id="passwordInput" name='password'  label="Senha (seis dígitos)" variant="standard" required type='password' minlenght={6} />
         <TextField id="confirmPasswordInput" name='confirmPassword'  label="Confirme a senha" variant="standard" required type='password' />
         <Button id="registerButton" variant="contained" type="submit">Cadastrar</Button>
-    </Box>
+      </Box>
+      {showAlert && <RegisterAlert />}
     </ThemeProvider>
   );
 }
