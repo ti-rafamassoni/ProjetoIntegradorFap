@@ -6,9 +6,7 @@ import { Button } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
 import { ThemeProvider } from '@mui/material';
 import { createTheme } from '@mui/material';
-import { Alert } from '@mui/material';
 import { RegisterAlert } from '../component/BasicAlert';
-import { Stack } from '@mui/material';
 
 const Theme = createTheme({
   palette:{
@@ -81,24 +79,6 @@ export default function Register() {
       const password = formData.get("password")
       const confirmPassword = formData.get("confirmPassword")
 
-      const emailRegex = /^[\w.-]+@[\w.-]+\.[a-z]{2,4}$/;
-      if (!emailRegex.test(email)) {
-      return;
-      }
-
-      const dateRegex = /^\d{2}\/\d{2}\/\d{4}$/;
-      if (!dateRegex.test(birth)) {
-        return;
-      }
-
-      if (password.length < 6) {
-        return;
-      }
-  
-      if(password !== confirmPassword) {
-        return;
-      }
-  
       const user = {
         id: uuidv4(),
         name: name,
@@ -118,7 +98,7 @@ export default function Register() {
       setTimeout(() => {
         setShowAlert(false);
         navigate('/usertable');
-    }, 3000); // Oculta o alerta após 3 segund
+    }, 3000); // Oculta o alerta após 3 segundos
   }   
   
   return (

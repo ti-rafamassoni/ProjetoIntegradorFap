@@ -18,9 +18,9 @@ const Theme = createTheme({
 export function RegisterAlert() {
   return (
     <ThemeProvider theme={Theme}>
-    <Stack sx={{ width: '100%' }} spacing={2}>
-       <Alert severity="success">Cadastro realizado com sucesso!</Alert>
-    </Stack>
+      <Stack sx={{ width: '100%' }} spacing={2}>
+        <Alert severity="success">Cadastro realizado com sucesso!</Alert>
+      </Stack>
     </ThemeProvider>
   );
 }

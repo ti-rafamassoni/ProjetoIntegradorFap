@@ -29,8 +29,6 @@ function Copyright(props) {
   );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
-
 const Theme = createTheme({
   palette:{
     primary: {
@@ -48,8 +46,6 @@ const Theme = createTheme({
     const navigate = useNavigate();
     
     const users = JSON.parse(localStorage.getItem('users'));
-    console.log(users);
-
     const { setAuth, setUser } = useContext(AuthContext)
 
     const handleSubmit = (event) => {

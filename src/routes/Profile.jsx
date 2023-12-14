@@ -19,7 +19,7 @@ const Theme = createTheme({
 
 
 const Profile = () => {
-  const { auth, user } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   return (
     <ThemeProvider theme={Theme}>
